@@ -1,0 +1,88 @@
+= Building the component
+
+Create the building directory for debug and enter into it.
+
+[source, bash]
+----
+mkdir build_deb && cd build_deb
+----
+
+Install conan into the build directory.
+
+* Create the buildinfo.txt, which contains the build settings
+* Installs the required tools for building (def build_requirements)
+* Fetches all required conan packages into the conan cache (def requirements)
+* Runs the generators for the required conan packages
+
+[source, bash]
+----
+conan install .. -s build_type=Debug
+----
+
+Build the project using conan.
+
+* Setting parameters are not needed, as they are stored in the conaninfo.txt
+* For building it uses the instructions hook (def build)
+
+[source, bash]
+----
+conan build ..
+----
+
+= Package creation
+
+Export the component recipe into the conan cache.
+
+* It creates an entry in the conan cache for the package/version/user/channel
+* The export directory is created with the recipe in it
+* The sources of the component can be exported (def export_sources) into the package under the export_sources directory.
+
+[source, bash]
+----
+conan export .. rtam/stable
+----
+
+The exported package looks like that in the conan cache.
+
+[source, bash]
+----
+dena_library
+└───1.0
+    └───dena
+        │   stable.count
+        │   stable.count.lock
+        │
+        └───stable
+            │   metadata.json
+            │   metadata.json.lock
+            │
+            ├───export
+            │       conanfile.py
+            │       conanmanifest.txt
+            │
+            └───export_source
+                │   CMakeLists.txt
+                │   conanfile.py
+                │
+                ├───include
+                │       dena.h
+                │
+                └───src
+                        dena.cc
+                        dena_internal.cc
+                        dena_internal.h
+----
+
+Create binaries to the package.
+
+* Exports the package, see above
+* Creates a build directory inside the package in the conan cache
+* Builds the binaries
+* Installs the binaries into the package folder
+
+Here we create a Debug binary for the package. The not overridden settings come from the default profile.
+
+[source, bash]
+----
+conan create .. rtam/stable -s build_type=Debug
+----

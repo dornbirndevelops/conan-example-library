@@ -2,10 +2,6 @@ cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
 
 project(dena_library)
 
-## update paths for find_package calls
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR})
-list(APPEND CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR})
-
 add_library(${PROJECT_NAME})
 
 ## compile

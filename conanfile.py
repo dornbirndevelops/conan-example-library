@@ -4,21 +4,33 @@ from conans import ConanFile, CMake
 class DenaLibraryConan(ConanFile):
     name = "dena_library"
     version = "1.0"
+    # The combination of these fields make a package unique
     settings = "os", "compiler", "build_type", "arch"
+    # Conan creates for the required Conan packages
+    # a find_package script (module style)
     generators = "cmake_find_package"
+    # If a required Conan package does not have binary package
+    # then it can build it.
     build_policy = "missing"
     url = "https://github.com/dornbirndevelops/conan-example-library"
     license = "feel free to use it"
     description = "Example showcase on how to develop a C++ library depending on other libraries with Conan Package Manager and CMake"
 
+    # Tools required for building
     def build_requirements(self):
         self.build_requires("cmake/3.19.6@")
 
+    # Conan packages needed for building
     def requirements(self):
         self.requires("poco/1.10.1@")
 
+    # Copy the source files (relative to conanfile.py)
+    # into the Conan package (self.export_sources_folder)
     def export_sources(self):
-        self.copy("*")
+        self.copy("src/*")
+        self.copy("include/*")
+        self.copy("CMakeLists.txt")
+        self.copy("conanfile.py")
 
     def _configure_cmake(self):
         cmake = CMake(self)
@@ -26,10 +38,12 @@ class DenaLibraryConan(ConanFile):
         cmake.configure()
         return cmake
 
+    # How to build the package
     def build(self):
         cmake = self._configure_cmake()
         cmake.build()
 
+    # How to create the package
     def package(self):
         cmake = self._configure_cmake()
         cmake.install()
