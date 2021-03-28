@@ -1,7 +1,7 @@
 #pragma once
-
+#include <dena_export.h>
 #include <string>
 
 namespace dena {
-    void print_md5(std::string content);
+    DENA_EXPORT void print_md5(std::string content);
 }
