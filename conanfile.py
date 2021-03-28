@@ -68,7 +68,7 @@ class DenaLibraryConan(ConanFile):
     def build(self):
         self._get_configured_cmake().build()
 
-    # bundle the necessary resources into the package 
+    # bundle the necessary resources into the package
     def package(self):
         self._get_configured_cmake().install()
     
