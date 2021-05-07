@@ -2,7 +2,7 @@ from conans import ConanFile, CMake, tools
 import os
 
 
-class DenaLibraryTestConan(ConanFile):
+class TestPackage(ConanFile):
     settings = "os", "arch", "compiler", "build_type"
     generators = "cmake"
 

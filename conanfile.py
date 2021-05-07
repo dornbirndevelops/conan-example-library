@@ -1,8 +1,8 @@
 from conans import ConanFile, CMake
 
 
-class DenaLibraryConan(ConanFile):
-    name = "dena_library"
+class MyLibraryPackage(ConanFile):
+    name = "mylibrary"
     version = "1.0"
 
     description = "Example showcase on how to develop a C++ library depending on other libraries with Conan Package Manager and CMake"
@@ -17,7 +17,7 @@ class DenaLibraryConan(ConanFile):
     # build the package automatically if requested configuration is not available
     build_policy = "missing"
     # use cmakes "find_package" functionality to access the required software packages
-    generators = "cmake_find_package"
+    generators = "cmake_find_package_multi"
     # prevent copying sources to build folder
     no_copy_source = True
 
@@ -36,7 +36,7 @@ class DenaLibraryConan(ConanFile):
 
     # required software packages during execution
     def requirements(self):
-        self.requires("poco/1.10.1@")
+        self.requires("boost/1.75.0@")
 
     #def package_id(self):
 
@@ -75,6 +75,6 @@ class DenaLibraryConan(ConanFile):
     # provide content information to the future consumer
     def package_info(self):
         self.cpp_info.includedirs = ['include']  # Ordered list of include paths
-        self.cpp_info.libs = ['dena_library']  # The libs to link against
+        self.cpp_info.libs = ['mylibrary']  # The libs to link against
         self.cpp_info.libdirs = ['lib']  # Directories where libraries can be found
         self.cpp_info.bindirs = ['bin']  # Directories where executables and shared libs can be found

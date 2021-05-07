@@ -3,21 +3,21 @@ cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
 include(GenerateExportHeader)
 include(GNUInstallDirs)
 
-project(dena_library)
+project(mylibrary)
 
 add_library(${PROJECT_NAME})
 generate_export_header(${PROJECT_NAME}
-    BASE_NAME dena
+    BASE_NAME mylibrary
 )
 
 ## compile
 target_sources(${PROJECT_NAME}
     PUBLIC
-        ./include/dena.h
+        ./include/mylibrary.h
     PRIVATE
-        ./src/dena.cc
-        ./src/dena_internal.cc
-        ./src/dena_internal.h
+        ./src/mylibrary.cc
+        ./src/mylibrary_internal.cc
+        ./src/mylibrary_internal.h
 )
 
 target_include_directories(${PROJECT_NAME}
@@ -29,9 +29,9 @@ target_include_directories(${PROJECT_NAME}
 )
 
 ## link
-find_package(Poco)
-if(TARGET Poco::Poco)
-    target_link_libraries(${PROJECT_NAME} PRIVATE Poco::Poco)
+find_package(Boost)
+if(TARGET Boost::Boost)
+    target_link_libraries(${PROJECT_NAME} PRIVATE Boost::Boost)
 endif()
 
 ## install
@@ -50,6 +50,6 @@ install(
         PATTERN "*.hpp"
 )
 install(
-    FILES ${CMAKE_CURRENT_BINARY_DIR}/dena_export.h
+    FILES ${CMAKE_CURRENT_BINARY_DIR}/mylibrary_export.h
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )

@@ -1,5 +1,5 @@
-#include "dena.h"
+#include <mylibrary.h>
 
 int main() {
-    dena::print_md5("conan rocks");
+    mylibrary::print_boost_info();
 }
